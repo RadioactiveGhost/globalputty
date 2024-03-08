@@ -1,7 +1,7 @@
 let neo = document.getElementById('neoButton');
 let quitB = document.getElementById('quitButton');
-neo.disabled = true;
-quitB.disabled = true;
+/* neo.disabled = true;
+quitB.disabled = true; */
 function sleep(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
