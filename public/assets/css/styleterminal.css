@@ -1,0 +1,46 @@
+body {
+  font-family: helvetica, sans-serif, arial;
+  font-size: 1em;
+  color: #111;
+}
+
+h1 {
+  text-align: center;
+}
+
+#terminal-container {
+  width: 960px;
+  height: 600px;
+  margin: 0 auto;
+  padding: 2px;
+}
+#terminal-container .terminal {
+  padding: 2px;
+}
+#terminal-container .terminal:focus .termminal-cursor {
+  background-color: #ffffff;
+}
+
+#buttons {
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+#buttons > input {
+  flex: 1;
+  margin: 6px 3px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  box-shadow: 0 2px 5px 0 gray;
+  transition-duration: 150ms;
+}
+#buttons > input:not([disabled]):hover {
+  cursor: pointer;
+  box-shadow: 0 4px 10px 2px gray;
+}
+#buttons > input[disabled] {
+  box-shadow: none !important;
+  background: #e2e2e2;
+}/*# sourceMappingURL=styleterminal.css.map */
