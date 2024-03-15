@@ -39,16 +39,21 @@ $(document).ready(function() {
         socket.disconnect(true);
         socket.disconnect();
     });
+    socket.on('redirect', (str1) => {
+        window.location.replace(str1);
+    });
+    socket.on('testChannel', (str1) => {
+        console.log(str1);
+    })
     function helloWorld() {
         socket.emit('data', 'neofetch\n');
     }
     function quitSSH() {
-        //await sleep(2000);
         socket.emit('data', 'exit\n');
         socket.disconnect(true);
         neo.disabled = true;
         quitB.disabled = true;
-        //socket.removeAllListeners();
+        console.log("Rip?");
     }
     neo.addEventListener('click', helloWorld);
     quitB.addEventListener('click', quitSSH);

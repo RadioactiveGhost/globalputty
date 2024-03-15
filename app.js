@@ -1,4 +1,4 @@
-// Implementação dos Módulos do NodeJS
+//* Implementação dos Módulos do NodeJS ---
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
@@ -18,21 +18,33 @@ session = require('express-session')({
     saveUninitialized: true
 });
 sharedsession = require("express-socket.io-session");
+io.use(sharedsession(session));
 app.use(session);
 const SSHClient = require('ssh2').Client;
 /* ------------------------------------- */
 
-//* Porta a aceder ao website--------------
+//* Variáveis -----------------------------
+const { list } = require('./server/deets');
+const log = console.log;
+let sshost = '';
+let ssport = '';
+let ssusername = '';
+let sspassword = '';
+    //* Porta a aceder ao website
 const serverPort = 8888;
+/* ------------------------------------- */
 
-/* Declarações para o express.js-------- */
-/* Trata de encaminhamento de ficheiros- */
+/*
+* Declarações para o express.js -----------
+*Tratam de encaminhamento de ficheiros ----
+*/
 app.use("/", express.static(__dirname + "/public"));
 app.use("/modules", express.static(__dirname + "/node_modules"));
 app.set('views', __dirname + '/public/');
 app.engine('html', engines.ejs);
 app.set('view engine', 'html');
 app.use(express.json());
+//? Verificar se necessário
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -40,14 +52,6 @@ app.use(express.urlencoded({
     extended: true
 }));
 /* ------------------------------------- */
-
-const log = console.log;
-let sshost = '';
-let ssport = '';
-let ssusername = '';
-let sspassword = '';
-
-io.use(sharedsession(session));
 
 //* Conexão SSH ---------------------------
 function sshConnection(socket) {
@@ -70,19 +74,21 @@ function sshConnection(socket) {
     }).on('close', function () {
         console.log('Closed');
         socket.emit('data', '\r\n- Conexão fechada\r\n');
+        socket.emit('redirect', '/');
     }).on('error', function (err) {
         console.log('Error: ' + err.message);
         socket.emit('data', '\r\n- Erro de Conexão: ' + err.message + '/!\\\r\n');
-    }).on('disconnect', function () {
+    })/*.on('disconnect', function () {
         console.log('Disconnected');
-    });
+    })*/;
     console.log('A user connected');
     socket.on('disconnect', function () {
         console.log('A user disconnected');
         io.off('connection', ioConnection);
         conn.off('disconnect', sshConnection);
-        socket.disconnect();
-        socket.removeAllListeners();
+        //? Potencialmente desnecessário
+        /*socket.disconnect();
+        socket.removeAllListeners();*/
     });
     conn.connect({
         host: sshost,
@@ -98,7 +104,14 @@ function ioConnection(socket) {
 /* ---------------------------------- */
 
 //* Encaminhamento de endereços -----------
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
+    log("Teste");
+    io.on('connection', function(socket) {
+        socket.emit('hello', 'wassup');
+        socket.emit('gerar', list);
+        socket.disconnect();
+        socket.removeAllListeners();
+    }).off('connection', () => log("Desligado"));
     res.render('index.html');
 });
 
@@ -131,29 +144,15 @@ app.post('/android', (req, res) => {
     res.render('terminal.html');
 });
 
+//TODO Better fetching of urls (and maybe more secure?)
 app.post('/something:id', (req, res) => {
-
-    console.log('success: ' + req.params.id)
-    res.status(200)
-    if (req.params.id == 'android') {
-        sshost = process.env.CON2HOST;
-        ssport = process.env.CON2PORT;
-        ssusername = process.env.CON2USER;
-        sspassword = process.env.CON2PASS;
-    }
-    else {
-        sshost = process.env.CON1HOST;
-        ssport = process.env.CON1PORT;
-        ssusername = process.env.CON1USER;
-        sspassword = process.env.CON1PASS;
-    }
-    console.log(sshost);
+    log('success: ' + req.params.id + "\nFrom deets: " + list[0][0]);
     res.end();
 });
 
-app.get('*', function (req, res) {
+/*app.get('*', function (req, res) {
     res.redirect('/');
-});
+});*/
 /* --------------------------------------*/
 
 //* Iniciar o Server ----------------------
