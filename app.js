@@ -109,14 +109,14 @@ function lsConnection(socket) {
 //* Encaminhamento de endereços -----------
 
 app.get('/', (req, res) => {
-    res.render('home', {layout: 'main', equipamentoLista: equipamentoLista, listExists: true});
+    res.render('home', {equipamentoLista: equipamentoLista, listExists: true});
 });
 /*app.get('/terminal', (req, res) => {
     io.on('connection', ioConnection);
     res.render('terminal');
 })*/
 app.get('/about', (req, res) => {
-    res.render('about', {layout: 'main'});
+    res.render('about');
 });
 app.post('/equipamento_:id', (req, res) => {
     log ('Selected Equipment: ' + req.params.id);
