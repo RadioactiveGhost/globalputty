@@ -1,32 +1,49 @@
+@font-face {
+  font-family: "Montserrat";
+  src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf");
+}
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
 
 body {
-    margin: 0 !important;
-    padding: 20px;
-    background-color: white;
+  margin: 0 !important;
+  background-color: #222;
+  text-align: center;
 }
 
-h2 {
-    color: purple;
+h1 {
+  color: white;
+  font-size: 3.3em;
 }
 
-input,select {
-    width: 200px;
-    padding : 0;
-
+#container {
+  /*border: 1px solid purple;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 3px 3px 0 rgba(128, 128, 128, 0.486);*/
+  padding: 20px;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
 }
-input[type=text] {
-    width: 195px !important;
+#container input {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 13px 40px;
+  margin: 6px 0;
+  font-size: 1.5em;
+  background-color: white;
+  box-shadow: 0px 5px 5px rgba(53, 53, 53, 0.342);
+  transition-duration: 250ms;
 }
-form {
-    border: 1px solid purple;
-    border-radius: 10px;
-    padding: 20px;
-    width: max-content;
-    background-color: white;
-    box-shadow: 0px 3px 3px 0 gray;
-}
-
-img {
-    clear:both;
-    float:right
-}
+#container input:hover {
+  background-color: #94e8bf;
+  cursor: pointer;
+  box-shadow: 0px 5px 5px rgba(53, 53, 53, 0.582);
+}/*# sourceMappingURL=style.css.map */

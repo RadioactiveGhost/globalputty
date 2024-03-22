@@ -1,0 +1,13 @@
+{{#if listExists}}
+  <ul>
+    {{#each equipamentoLista as |equipamento|}}
+      <li class={{equipamento.tipo}}>
+        <form action="equipamento_{{equipamento.pk}}"  method="post">
+          {{equipamento.tipo}} {{equipamento.pk}} - {{equipamento.sentido}}
+          <br>
+          <input type="submit" name="{{equipamento.pk}}" value="Select">
+        </form>
+        </li>
+    {{/each}}
+  </ul>
+{{/if}}
