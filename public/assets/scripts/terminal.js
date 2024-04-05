@@ -1,11 +1,10 @@
-let neo = document.getElementById('neoButton');
-let quitB = document.getElementById('quitButton');
-/* neo.disabled = true;
-quitB.disabled = true; */
+let tmButton = document.getElementById('tmButton');
+let pvrButton = document.getElementById('pvrButton');
+let stopButton = document.getElementById('stopButton');
+let quitButton = document.getElementById('quitButton');
 function sleep(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 
 $(document).ready(function() {
     let socket = io();
@@ -45,25 +44,24 @@ $(document).ready(function() {
     socket.on('testChannel', (str1) => {
         console.log(str1);
     })
-    function helloWorld() {
-        socket.emit('data', 'neofetch\n');
+    function tm() {
+        socket.emit('data', '/usr/local/tm/bin/tm\n');
+    }
+    function pvr() {
+        socket.emit('data', 'pvr\n');
+    }
+    function stop() {
+        socket.emit('data', '\x03');
     }
     function quitSSH() {
-        socket.emit('data', 'exit\n');
-        socket.disconnect(true);
+        socket.emit('data', 'logout\n');
+        /*socket.disconnect(true);
         neo.disabled = true;
         quitB.disabled = true;
-        console.log("Rip?");
+        console.log("Rip?");*/
     }
-    neo.addEventListener('click', helloWorld);
-    quitB.addEventListener('click', quitSSH);
-})
-let start = document.getElementById('start');
-function doSomething(string) {
-    $.ajax({
-        type: 'POST',
-        url: '/something'+string
-    })
-    neo.disabled = false;
-    quitB.disabled = false;
-}
+    tmButton.addEventListener('click', tm);
+    pvrButton.addEventListener('click', pvr);
+    stopButton.addEventListener('click', stop);
+    quitButton.addEventListener('click', quitSSH);
+});

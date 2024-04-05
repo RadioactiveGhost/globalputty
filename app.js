@@ -24,7 +24,6 @@ let sspassword = '';
 * Declarações para o express.js -----------
 *Tratam de encaminhamento de ficheiros ----
 */
-
 app.set('view engine', 'handlebars');
 app.engine('handlebars', engine({
     layoutsDir: __dirname + '/views/layouts',
@@ -60,50 +59,23 @@ function sshConnection(socket) {
     }).on('error', function (err) {
         console.log('Error: ' + err.message);
         socket.emit('data', '\r\n- Erro de Conexão: ' + err.message + '/!\\\r\n');
-    })//.on('disconnect', function () {
-        //console.log('Disconnected');
-    //})
+    });
     console.log('A user connected');
     socket.on('disconnect', function () {
         console.log('A user disconnected');
         io.off('connection', ioConnection);
         conn.off('disconnect', sshConnection);
-        //? Potencialmente desnecessário
-        //socket.disconnect();
-        //socket.removeAllListeners();
     });
     conn.connect({
-        host: '10.200.1.20',
-        port: '22',
-        username: 'adr4k',
-        password: 'adr4k'
+        host: sshost,
+        port: ssport,
+        username: ssusername,
+        password: sspassword
     });
 };
-
 function ioConnection(socket) {
     sshConnection(socket);
 }
-/* ---------------------------------- */
-
-//* 
-
-function listConnection(socket)  {
-    io.on('connection', function(socket) {
-        socket.emit('hello', 'wassup');
-        socket.emit('gerar', list);
-        socket.disconnect();
-        socket.removeAllListeners();
-    }).off('connection', () => log("Desligado"));
-    socket.on('disconnect', function () {
-        log('Index disconnected');
-        io.off('connection', lsConnection);
-    });
-}
-
-function lsConnection(socket) {
-    listConnection(socket);
-}
-
 /* ---------------------------------- */
 
 //* Encaminhamento de endereços -----------
@@ -111,22 +83,18 @@ function lsConnection(socket) {
 app.get('/', (req, res) => {
     res.render('home', {equipamentoLista: equipamentoLista, listExists: true});
 });
-/*app.get('/terminal', (req, res) => {
-    io.on('connection', ioConnection);
-    res.render('terminal');
-})*/
 app.get('/about', (req, res) => {
     res.render('about');
 });
 app.post('/equipamento_:id', (req, res) => {
     log ('Selected Equipment: ' + req.params.id);
-    for (let i = 0; i < equipmentList.length; i++) {
-        if (req.params.id === equipmentList[i].pk) {
-            log('Type: ' + equipmentList[i].host);
-            sshost = equipmentList[i].host;
-            ssport = equipmentList[i].port;
-            ssusername = equipmentList[i].user;
-            sspassword = equipmentList[i].pass;
+    for (let i = 0; i < equipamentoLista.length; i++) {
+        if (req.params.id === equipamentoLista[i].pk) {
+            log('Type: ' + equipamentoLista[i].host + ' | ' + i);
+            sshost = equipamentoLista[i].host;
+            ssport = equipamentoLista[i].port;
+            ssusername = equipamentoLista[i].user;
+            sspassword = equipamentoLista[i].pass;
             break;
         }
     }
@@ -134,9 +102,9 @@ app.post('/equipamento_:id', (req, res) => {
     res.render('terminal');
 })
 
-/*app.get('*', function (req, res) {
+app.get('*', function (req, res) {
     res.redirect('/');
-});*/
+});
 /* --------------------------------------*/
 
 //* Iniciar o Server ----------------------
