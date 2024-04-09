@@ -1,0 +1,22 @@
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: #00000077;
+    text-align: center;
+    padding: 0;
+}
+
+.footer img {
+    margin: 0 auto;
+    width: 130px;
+}
+
+@media only screen and (max-width: 670px) {
+    .footer{
+        position: fixed;
+        bottom: 0;
+    }
+}

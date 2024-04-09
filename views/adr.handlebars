@@ -1,0 +1,22 @@
+<div class="subheader">ADR</div>
+
+<div class="maincontainer">
+  <!--<a href="">
+        <input type="button" value="91" />
+      </a>-->
+  {{#if listExists}}
+    <a href="">
+      {{#each equipamentoLista as |equipamento|}}
+        <a href="/equipamento_{{equipamento.pk}}">
+          <input type="button" value="{{equipamento.pk}}" />
+        </a>
+      {{/each}}
+    </a>
+  {{/if}}
+</div>
+<div class="go_home_button">
+  <a href="/">
+    <img src="assets/images/home.png" />
+    <img class="img_hover" src="assets/images/home_hover.png" />
+  </a>
+</div>
