@@ -39,10 +39,16 @@ h1 {
         font-family: "FiraCode";
         .terminal {
             padding: 2px;
-            /*pointer-events: none;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;*/
+            &:hover {
+                cursor:text;
+            }
+            &.disabled {
+                pointer-events: none;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            
             &:focus {
                 .termminal-cursor {
                     background-color: #ffffff;

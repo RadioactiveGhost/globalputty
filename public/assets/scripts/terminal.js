@@ -1,23 +1,24 @@
 let tmButton = document.getElementById('tmButton');
 let pvrButton = document.getElementById('pvrButton');
 let stopButton = document.getElementById('stopButton');
+let clearButton = document.getElementById('clearButton');
 let quitButton = document.getElementById('quitButton');
 function sleep(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-let menuOptions = [
+/*let menuOptions = [
     [1, 'Control de Enlace (Enq)'],
     [2, 'Orden de Configuracion Global'],
     [3, 'Orden de Cambio de Parametros de Operacion'],
-    [4, 'Orden de Reset'],
+    [4, 'Orden de Reset'], -
     [5, 'Orden de Establecer Fecha y Hora'],
     [6, 'Peticion de Datos de Ultimo Periodo de Integracion'],
     [7, 'Peticion de Datos Historicos de Periodo'],
     [8, 'Peticion de Configuracion Global'],
     [9, 'Peticion de Parametros de Operacion'],
-    [10, 'Peticion de Estado y Alarmas'],
-    [11, 'Peticion de Fecha y Hora'],
+    [10, 'Peticion de Estado y Alarmas'], -
+    [11, 'Peticion de Fecha y Hora'], -
     [12, 'Peticion de Identificacion'],
     [13, 'Peticion de Datos Elaborados en una Hora'],
     [14, 'Peticion de Datos Elaborados en un Dia'],
@@ -28,6 +29,12 @@ let menuOptions = [
     [28, 'Desactivar Check Detectora'],
     [29, 'Reset General Piezos'],
     [30, 'Reset Canal Piezos']
+];*/
+
+let menuOptions = [
+    [4, 'Orden de Reset'],
+    [10, 'Peticion de Estado y Alarmas'],
+    [11, 'Peticion de Fecha y Hora']
 ];
 
 let menuGroup = document.getElementById('menuGroup');
@@ -36,7 +43,6 @@ for (i = 0; i < menuOptions.length; i++) {
 }
 
 let socket = io();
-
 socket.emit('startSSH')
 
 var terminalContainer = document.getElementById('terminal-container');
@@ -77,18 +83,24 @@ socket.on('testChannel', (str1) => {
 })
 
 function menu(key) {
+    socket.emit('data', ' /usr/local/tm/bin/tm\n');
+    sleep(1000);
     socket.emit('data', key + '\n');
 }
 
 function tm() {
-    socket.emit('data', '/usr/local/tm/bin/tm\n');
     if (document.getElementById('menuGroup').classList.contains('hide')) {
+        //socket.emit('data', '/usr/local/tm/bin/tm\n');
         document.getElementById('menuGroup').classList.remove('hide');
         document.getElementById('menuGroup').classList.add('show');
+    } else if (document.getElementById('menuGroup').classList.contains('show')) {
+        //socket.emit('data', '\x03');
+        document.getElementById('menuGroup').classList.remove('show');
+        document.getElementById('menuGroup').classList.add('hide');
     }
 }
 function pvr() {
-    socket.emit('data', 'pvr\n');
+    socket.emit('data', '\x03\npvr\n');
 }
 function stop() {
     socket.emit('data', '\x03');
@@ -97,25 +109,28 @@ function stop() {
         document.getElementById('menuGroup').classList.add('hide');
     }
 }
+
+function clear() {
+    socket.emit('data', 'clear\n');
+}
 function quitSSH() {
     socket.emit('data', 'logout\n');
-    /*socket.disconnect(true);
-    neo.disabled = true;
-    quitB.disabled = true;
-    console.log("Rip?");*/
 }
 tmButton.addEventListener('click', tm);
 pvrButton.addEventListener('click', pvr);
 stopButton.addEventListener('click', stop);
+clearButton.addEventListener('click', clear);
 quitButton.addEventListener('click', quitSSH);
 let terminal = document.querySelector('.terminal');
 terminal.setAttribute('tabindex', '-1');
-
+terminal.classList.toggle('disabled');
 let val = false;
 
 function toggleInput() {
     document.getElementById('toggleInput').classList.toggle('disabled');
     document.getElementById('toggleInput').classList.toggle('enabled');
+    terminal.classList.toggle('disabled');
+
     if (val) {
         val = false;
         tmButton.removeAttribute('disabled', '');

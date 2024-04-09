@@ -43,10 +43,16 @@ h1 {
 }
 #terminal-window #terminal-container .terminal {
   padding: 2px;
-  /*pointer-events: none;
+}
+#terminal-window #terminal-container .terminal:hover {
+  cursor: text;
+}
+#terminal-window #terminal-container .terminal.disabled {
+  pointer-events: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  user-select: none;*/
+  -moz-user-select: none;
+       user-select: none;
 }
 #terminal-window #terminal-container .terminal:focus .termminal-cursor {
   background-color: #ffffff;
