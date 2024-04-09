@@ -39,6 +39,8 @@ function sshConnection(socket) {
     let conn = new SSHClient();
     conn.on('ready', function () {
         socket.emit('data', '\r\n- Conexão estabelecida \r\n');
+        //* Mostra os botões de interação quando liga com sucesso 
+        socket.emit('showButtons', true);
         conn.shell(function (err, stream) {
             if (err) {
                 return socket.emit('data', '\r\n- Erro de SSH: ' + err.message + ' /!\\\r\n');
@@ -88,7 +90,8 @@ app.get('/about', (req, res) => {
 });
 app.post('/equipamento_:id', (req, res) => {
     log ('Selected Equipment: ' + req.params.id);
-    for (let i = 0; i < equipamentoLista.length; i++) {
+    let i = 0
+    for (i = 0; i < equipamentoLista.length; i++) {
         if (req.params.id === equipamentoLista[i].pk) {
             log('Type: ' + equipamentoLista[i].host + ' | ' + i);
             sshost = equipamentoLista[i].host;
@@ -99,7 +102,7 @@ app.post('/equipamento_:id', (req, res) => {
         }
     }
     io.on('connection', ioConnection);
-    res.render('terminal');
+    res.render('terminal', {nome: 'ADR ' + equipamentoLista[i].pk + ' - ' + equipamentoLista[i].sublanco, layout: false});
 })
 
 app.get('*', function (req, res) {

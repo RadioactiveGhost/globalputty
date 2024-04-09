@@ -2,43 +2,74 @@
   font-family: "FiraCode";
   src: url("/assets/fonts/FiraCodeNerdFontMono-Regular.ttf");
 }
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
+/*html, body {
+    overflow-x: hidden;
+}*/
 body {
   font-family: helvetica, sans-serif, arial;
   font-size: 1em;
   color: #111;
+  overflow-x: hidden;
 }
 
 h1 {
   text-align: center;
 }
 
-#terminal-container {
+#terminal-window {
   width: 960px;
   height: 600px;
-  margin: 0 auto;
-  padding: 2px;
+  float: right;
+  background-color: black;
+  margin-top: 10px;
+  margin-right: 10px;
+  box-shadow: 0 4px 5px 0 rgb(0, 0, 0);
+  border-radius: 20px;
+}
+#terminal-window #terminal-header {
+  width: calc(100% - 40px);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  background-color: rgb(138, 160, 160);
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+#terminal-window #terminal-container {
+  width: 940px;
+  height: 560px;
+  padding: 10px;
   font-family: "FiraCode";
 }
-#terminal-container .terminal {
+#terminal-window #terminal-container .terminal {
   padding: 2px;
+  /*pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;*/
 }
-#terminal-container .terminal:focus .termminal-cursor {
+#terminal-window #terminal-container .terminal:focus .termminal-cursor {
   background-color: #ffffff;
 }
 
-#buttons {
+#buttonGroup {
+  visibility: hidden;
+}
+
+#buttonGroup.show {
+  visibility: visible !important;
+  animation: fadeIn 0.25s forwards;
+  -webkit-animation: fadeIn 0.25s forwards;
+}
+
+#buttons, #menuGroup {
   float: left;
   display: flex;
   flex-direction: column;
 }
-#buttons > input {
+#buttons > input, #menuGroup > input {
   flex: 1;
-  margin: 6px 3px;
+  margin: 2px 3px;
   padding: 10px;
   border-radius: 10px;
   border: none;
@@ -46,11 +77,83 @@ h1 {
   box-shadow: 0 2px 5px 0 gray;
   transition-duration: 150ms;
 }
-#buttons > input:not([disabled]):hover {
+#buttons > input:not([disabled]):hover, #menuGroup > input:not([disabled]):hover {
   cursor: pointer;
   box-shadow: 0 4px 10px 2px gray;
 }
-#buttons > input[disabled] {
+#buttons > input[disabled], #menuGroup > input[disabled] {
   box-shadow: none !important;
   background: #e2e2e2;
+}
+
+#aguarde {
+  margin-top: 10%;
+  font-size: 2em;
+  float: left;
+}
+
+#aguarde.hide {
+  animation: fadeOut 0.25s forwards;
+  -webkit-animation: fadeOut 0.25s forwards;
+}
+
+#menuGroup {
+  visibility: hidden;
+}
+#menuGroup > input {
+  text-align: left;
+}
+
+#menuGroup.show {
+  visibility: visible !important;
+  animation: fadeIn 0.25s forwards;
+  -webkit-animation: fadeIn 0.25s forwards;
+}
+
+#menuGroup.hide {
+  visibility: hidden !important;
+  animation: fadeOut 0.25s forwards;
+  -webkit-animation: fadeOut 0.25s forwards;
+}
+
+#toggleInput.disabled {
+  background-color: #ffc6c6;
+}
+
+#toggleInput.enabled {
+  background-color: #c6ffc6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50px, 0);
+    -webkit-transform: translate(-50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+    -webkit-transform: translate(0);
+  }
+}
+@keyframes fadeOut {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0);
+    -webkit-transform: translate(0);
+  }
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(50px, 0);
+    -webkit-transform: translate(-50px, 0);
+  }
+}
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
 }/*# sourceMappingURL=styleterminal.css.map */
