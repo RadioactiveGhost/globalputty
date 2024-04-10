@@ -51,14 +51,13 @@ const fitAddon = new FitAddon.FitAddon();
 term.loadAddon(fitAddon);
 term.open(terminalContainer);
 fitAddon.fit();
-socket.on('connect', function () {
+socket.on('connect', () => {
     term.write('\r\n- Ligado ao servidor\r\n');
     console.log('Event: ' + this.event)
 });
 
-
 // Backend -> Browser
-socket.on('data', function (data) {
+socket.on('data', (data) => {
     term.write(data);
 });
 
@@ -69,12 +68,22 @@ socket.on('showButtons', bool => {
     }
 })
 
-socket.on('disconnect', function () { // Manually disconnects the socket
+socket.on('disconnect', () => { // Manually disconnects the socket
     term.write('\r\n- Utilizador Desligado do servidor\r\n');
     socket.removeAllListeners();
     socket.disconnect(true);
     socket.disconnect();
 });
+
+socket.on('warning', () => {
+    document.getElementById('aguarde').innerHTML = `Ocorreu um erro ao tentar
+    <br>
+    ligar ao dispositivo.
+    <br>
+    Tentar novamente?
+    <br>
+    <input type='button' value='Sim' onclick='location.reload()'><input type='button' value='Voltar atrás'>`;
+})
 socket.on('redirect', (str1) => {
     window.location.replace(str1);
 });

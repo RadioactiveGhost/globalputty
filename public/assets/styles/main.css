@@ -1,8 +1,8 @@
 :root {
     --color1: #0f3866;
     --color2: #94e8bf;
-    --color1_50percent: #0f386675;
-    --color2_50percent: #94e8bf80;
+    --color1_50percent: #0f3866f3;
+    --color2_50percent: #94e8bff3;
 }
 
 @font-face {

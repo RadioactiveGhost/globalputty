@@ -57,10 +57,11 @@ function sshConnection(socket) {
     }).on('close', function () {
         console.log('Closed');
         socket.emit('data', '\r\n- Conexão fechada\r\n');
-        socket.emit('redirect', '/');
+        //socket.emit('redirect', '/');
     }).on('error', function (err) {
+        socket.emit('warning', err.message);
         console.log('Error: ' + err.message);
-        socket.emit('data', '\r\n- Erro de Conexão: ' + err.message + '/!\\\r\n');
+        //socket.emit('data', '\r\n- Erro de Conexão: ' + err.message + '/!\\\r\n');
     });
     console.log('A user connected');
     socket.on('disconnect', function () {
