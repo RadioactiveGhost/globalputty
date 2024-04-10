@@ -59,14 +59,14 @@ body {
 }
 
 .ip2 {
-    background-image: url("/assets/images/ip2.jpg");
+    background-image: url("/assets/images/ip2_new.jpg");
     background-size: 120%;
     background-position: 40% 30%;
     background-attachment: fixed;
 }
 
 .cams {
-    background-image: url("/assets/images/cams.jpg");
+    background-image: url("/assets/images/cams_new.jpg");
     background-size: 150%;
     background-position: 40% 30%;
     background-attachment: fixed;
