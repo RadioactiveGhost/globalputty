@@ -1,41 +1,88 @@
 <html>
-  <head>
-    <title>SSH Terminal</title>
-    <link rel="stylesheet" href="/modules/xterm/css/xterm.css" />
-    <script src="/modules/xterm/lib/xterm.js"></script>
-    <script src="/modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
 
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/assets/styles/styleterminal.css"
-    />
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"
-    ></script>
-  </head>
-  <body>
+<head>
+  <title>SSH Terminal</title>
+  <link rel="stylesheet" href="/modules/xterm/css/xterm.css" />
+  <script src="/modules/xterm/lib/xterm.js"></script>
+  <script src="/modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/assets/styles/styleterminal.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <a href="/index.html" style="text-decoration: none; color: #94e8bf; text-shadow: 0 0 2px #0f3866, 0 0 5px #0f3866">
+      GLOBAL
+    </a>
+    <a href="/index.html" style="text-decoration: none; color: #0f3866; text-shadow: 0 0 2px #94e8bf, 0 0 5px #94e8bf">
+      PuTTY
+    </a>
+  </div>
+
+  <div class="subheader">{{nome}}</div>
+
+  <div class="maincontainer">
+
     <div id="buttonGroup">
       <div id="buttons">
-        <input type="button" value="Menu" id="tmButton" /><br />
-        <input type="button" value="PVR" id="pvrButton" /><br />
-        <input type="button" value="Parar comando" id="stopButton" /><br />
-        <input type="button" value="Sair" id="quitButton"/>
-        <input type="button" value="Limpar ecrã" id="clearButton" onclick="clear()">
-        <input type="button" value="Toggle Input" id="toggleInput" class="disabled" onclick="toggleInput()">
+        <a class="tooltip">
+          <input type="button" value="Menu" id="tmButton" />
+          <span class="tooltiptext">Entrar no Menu<br>da ADR</span>
+        </a>
+        <a class="tooltip">
+          <input type="button" value="PVR" id="pvrButton" />
+          <span class="tooltiptext">Contagem em<br>tempo real</span>
+        </a>
+        <a class="tooltip">
+          <input type="button" value="Parar" id="stopButton" />
+          <span class="tooltiptext">Parar execução do<br>comando anterior</span>
+        </a>
+        <a class="tooltip">
+          <input type="button" value="Limpar" id="clearButton" />
+          <span class="tooltiptext">Limpar ecrã<br> do terminal</span>
+        </a>
+        <a class="tooltip">
+          <input type="button" value="Desconectar" id="quitButton" />
+          <span class="tooltiptext">Desligar conexão<br>com a ADR</span>
+        </a>
       </div>
-      <div id="menuGroup" class="hide">
-      </div>
+      <div id="menuGroup" class="hide"></div>
     </div>
+
     <div id="aguarde">
       Aguarde...
     </div>
     <div id="terminal-window">
-      <div id="terminal-header">Terminal {{nome}}</div>
+      <div id="terminal-header">Terminal</div>
       <div id="terminal-container" disabled>
       </div>
     </div>
-    <script src="/assets/scripts/terminal.js"></script>
-  </body>
+
+  </div>
+
+  <script src="/assets/scripts/terminal.js"></script>
+
+
+  <div class="go_back_button">
+    <a href="adr">
+      <img src="/assets/images/back_arrow.png" />
+      <img class="img_hover" src="/assets/images/back_arrow_hover.png" />
+    </a>
+  </div>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <div class="go_home_button">
+    <a href="/">
+      <img src="/assets/images/home.png" />
+      <img class="img_hover" src="/assets/images/home_hover.png" />
+    </a>
+  </div>
+
+  <div class="footer">
+    <img src="/assets/images/tmt_logo.png" alt="Globalvia Logo" />
+  </div>
+
+</body>
+
 </html>

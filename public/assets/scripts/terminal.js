@@ -32,14 +32,14 @@ function sleep(ms = 0) {
 ];*/
 
 let menuOptions = [
-    [4, 'Orden de Reset'],
-    [10, 'Peticion de Estado y Alarmas'],
-    [11, 'Peticion de Fecha y Hora']
+    [4, 'Reset'],
+    [10, 'Alarmes'],
+    [11, 'Data e hora']
 ];
 
 let menuGroup = document.getElementById('menuGroup');
 for (i = 0; i < menuOptions.length; i++) {
-    menuGroup.innerHTML += '<input class="red" type="button" value="[' + menuOptions[i][0] + '] ' + menuOptions[i][1] + '" onclick="menu(' + menuOptions[i][0] + ')">';
+    menuGroup.innerHTML += '<input class="red" type="button" style="text-align: center; width: 160px; height: 40px; border-radius: 20px; font-size: 1em; margin-left: -15px" value="' + menuOptions[i][1] + '" onclick="menu(' + menuOptions[i][0] + ')">';
 }
 
 let socket = io();
@@ -76,13 +76,13 @@ socket.on('disconnect', () => { // Manually disconnects the socket
 });
 
 socket.on('warning', () => {
-    document.getElementById('aguarde').innerHTML = `Ocorreu um erro ao tentar
+    document.getElementById('aguarde').innerHTML = `<span style="font-size: 0.7em"> Ocorreu um erro ao tentar
     <br>
     ligar ao dispositivo.
     <br>
     Tentar novamente?
-    <br>
-    <input type='button' value='Sim' onclick='location.reload()'><input type='button' value='Voltar atrás'>`;
+    <br><br> </span>
+    <input style="margin-right: 5px; width: 100px; height: 25px; font-weight: bold; color: #0f3866" type='button' value='Sim' onclick='location.reload()'><input style="margin-right: 5px; width: 100px; height: 25px; font-weight: bold; color: #0f3866" type='button' value='Sair'>`;
 })
 socket.on('redirect', (str1) => {
     window.location.replace(str1);

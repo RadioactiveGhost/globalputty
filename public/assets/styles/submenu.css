@@ -1,8 +1,8 @@
 :root {
     --color1: #0f3866;
     --color2: #94e8bf;
-    --color1_50percent: #0f386675;
-    --color2_50percent: #94e8bf80;
+    --color1_50percent: #0f3866f3;
+    --color2_50percent: #94e8bff3;
 }
 
 @font-face {
@@ -31,10 +31,11 @@ body {
 }
 
 .cctv {
-    background-image: url("/assets/images/cctv.jpg");
+    background-image: url("/assets/images/cctv_1.jpg");
     background-size: 150%;
     background-position: 40% 30%;
     background-attachment: fixed;
+    background-blend-mode: normal;
 }
 
 .a4 {

@@ -1,61 +1,89 @@
+:root {
+    --color1: #0f3866;
+    --color2: #94e8bf;
+    --color1_50percent: #0f3866f3;
+    --color2_50percent: #94e8bff3;
+}
+
 @font-face {
     font-family: "FiraCode";
-    src: url("/assets/fonts/FiraCodeNerdFontMono-Regular.ttf")
+    src: url("/assets/fonts/FiraCodeNerdFontMono-Regular.ttf");
+    font-family: "Montserrat";
+    src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf");
 }
-/*html, body {
-    overflow-x: hidden;
-}*/
+
 body {
-    font-family: helvetica, sans-serif, arial;
+    font-family: "Montserrat", sans-serif;
     font-size: 1em;
-    color: #111;
+    color: #000000;
     overflow-x: hidden;
+    background-image: url("/assets/images/device_background.jpg");
+    margin: 0;
+    padding: 0;
+    background-size: 180%;
+    background-position: 0% 20%;
+    background-repeat: no-repeat;
+    background-blend-mode: exclusion;
+    background-attachment: fixed;
+    text-align: center;
 }
-h1 {
-    text-align: center
+
+.header {
+    margin-top: 2%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    text-align: center;
+
+    a {
+        text-align: center;
+        padding: 0;
+        font-weight: bolder;
+        font-size: 4em;
+        margin-left: -0.5%;
+        margin-right: -0.5%;
+    }
 }
-#terminal-window {
-    width: 960px;
-    height: 600px;
-    float:right;
-    background-color: black;
-    margin-top: 10px;
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: #00000077;
+    text-align: center;
+    padding: 0;
+
+    img {
+        margin: 0 auto;
+        width: 130px;
+    }
+}
+
+.subheader {
+    margin-bottom: 80px;
+    margin-top: 20px;
+    left: 0;
+    width: 100%;
+    color: white;
+    text-shadow: 2px 2px 4px #0f3866;
+    text-align: center;
+    padding: 0;
+    font-weight: bolder;
+    font-size: 2em;
+}
+
+.maincontainer {
+    float: left;
+    margin-left: 400px;
     margin-right: 10px;
-    box-shadow: 0 4px 5px 0 rgb(0, 0, 0);
-    border-radius: 20px;
-    #terminal-header {
-        width: calc(100% - 40px);
-        border-top-left-radius: 18px;
-        border-top-right-radius: 18px;
-        background-color: rgb(138, 160, 160);
-        color:white;
-        padding: 10px 20px;
-        font-weight: bold;
-    }
-    #terminal-container {
-        width: 940px;
-        height: 560px;
-        padding: 10px;
-        font-family: "FiraCode";
-        .terminal {
-            padding: 2px;
-            &:hover {
-                cursor:text;
-            }
-            &.disabled {
-                pointer-events: none;
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                user-select: none;
-            }
-            
-            &:focus {
-                .termminal-cursor {
-                    background-color: #ffffff;
-                }
-            }
-        }
-    }
+    margin-top: 30px;
+    width: 80%;
+    height: 80%;
+    border-color: black;
+    padding: 10px;
+    color: white;
 }
 
 #buttonGroup {
@@ -68,35 +96,88 @@ h1 {
     -webkit-animation: fadeIn 0.25s forwards;
 }
 
-#buttons, #menuGroup {
+#buttons,
+#menuGroup {
     float: left;
     display: flex;
     flex-direction: column;
-    &>input {
-        flex: 1;
-        margin: 2px 3px;
-        padding: 10px;
-        border-radius: 10px;
-        border: none;
-        background: white;
-        box-shadow: 0 2px 5px 0 gray;
+
+    input {
+        width: 250px;
+        height: 60px;
+        border-color: #222222;
+        border-style: outset;
+        outline: none;
+        border-radius: 25px;
+        background: #eee;
+        font-size: 1.3em;
+        font-weight: bold;
         transition-duration: 150ms;
+        color: var(--color1);
+        padding: 5px;
+        margin: 10px;
+        margin-right: 20px;
+        margin-bottom: -5px;
+
         &:not([disabled]):hover {
             cursor: pointer;
-            box-shadow: 0 4px 10px 2px gray;
+            background: var(--color1_50percent);
+            color: var(--color2);
+            border-color: #222222;
+            border-style: inset;
         }
+
         &[disabled] {
             box-shadow: none !important;
             background: #e2e2e2;
         }
     }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted #0f3866;
+
+        .tooltiptext {
+            visibility: hidden;
+            width: 170px;
+            background-color: #0f3866;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            right: 110%;
+            margin-right: -25px;
+            margin-top: 30px;
+        }
+
+        .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #0f3866 transparent transparent transparent;
+        }
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
 }
 
 #aguarde {
-    margin-top: 10%;
+    margin-top: 140px;
+    margin-left: -380px;
     font-size: 2em;
     float: left;
 }
+
 #aguarde.hide {
     animation: fadeOut 0.25s forwards;
     -webkit-animation: fadeOut 0.25s forwards;
@@ -104,15 +185,19 @@ h1 {
 
 #menuGroup {
     visibility: hidden;
+
+
     &>input {
         text-align: left;
     }
 }
+
 #menuGroup.show {
     visibility: visible !important;
     animation: fadeIn 0.25s forwards;
     -webkit-animation: fadeIn 0.25s forwards;
 }
+
 #menuGroup.hide {
     visibility: hidden !important;
     animation: fadeOut 0.25s forwards;
@@ -122,9 +207,66 @@ h1 {
 #toggleInput.disabled {
     background-color: #ffc6c6;
 }
+
 #toggleInput.enabled {
     background-color: #c6ffc6;
 }
+
+#terminal-window {
+    /*width: 960px;*/
+    /*height: 600px;*/
+    text-align: left;
+    width: 760px;
+    height: 510x;
+    margin-right: 300px;
+    margin-top: -60px;
+    float: right;
+    background-color: black;
+    box-shadow: 0 4px 5px 0 rgb(0, 0, 0);
+    border-radius: 20px;
+
+    #terminal-header {
+        text-align: center;
+        width: calc(100% - 40px);
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+        background-color: var(--color1_50percent);
+        color: white;
+        padding: 10px 20px;
+        font-weight: bold;
+    }
+
+    #terminal-container {
+        /*width: 940px;*/
+        /*height: 560px;*/
+        width: 740px;
+        height: 450px;
+        padding: 10px;
+        font-family: "FiraCode";
+
+        .terminal {
+            padding: 2px;
+
+            &:hover {
+                cursor: text;
+            }
+
+            &.disabled {
+                pointer-events: none;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            &:focus {
+                .termminal-cursor {
+                    background-color: #ffffff;
+                }
+            }
+        }
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -138,6 +280,7 @@ h1 {
         -webkit-transform: translate(0);
     }
 }
+
 @keyframes fadeOut {
     from {
         visibility: visible;
@@ -153,9 +296,37 @@ h1 {
         -webkit-transform: translate(-50px, 0);
     }
 }
+
 .fadeOut {
     animation-name: fadeOut;
 }
+
 .fadeIn {
     animation-name: fadeIn;
+}
+
+.go_back_button,
+.go_home_button {
+    margin-top: -14%;
+    display: inline-block;
+    position: relative;
+}
+
+.go_back_button>a>img,
+.go_home_button>a>img {
+    width: 50px;
+}
+
+.go_back_button>a>.img_hover,
+.go_home_button>a>.img_hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.go_back_button:hover>a>.img_hover,
+.go_home_button:hover>a>.img_hover {
+    display: inline;
 }
