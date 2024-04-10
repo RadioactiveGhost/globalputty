@@ -1,16 +1,18 @@
-<body class="cams">
-  <div class="subheader">CAMs</div>
-
+<body class="{{bodyClass}}">
+  <div class="subheader">{{subtitle}}</div>
   <div class="maincontainer">
-    <a class="tooltip" href="">
-      <input type="button" value="Lamares" />
-    </a>
-    <a href="">
-      <input type="button" value="Rossas" />
-    </a>
+    {{#if listExists}}
+      <a href="">
+        {{#each lista as |equipamento|}}
+          <a href="/equipamento_{{equipamento.pk}}">
+            <input type="button" value="{{equipamento.pk}}" />
+          </a>
+        {{/each}}
+      </a>
+    {{/if}}
   </div>
   <div class="go_back_button">
-    <a href="cctv">
+    <a href="{{backAction}}">
       <img src="assets/images/back_arrow.png" />
       <img class="img_hover" src="assets/images/back_arrow_hover.png" />
     </a>

@@ -1,12 +1,11 @@
 <div class="subheader">ADR</div>
-
 <div class="maincontainer">
   <!--<a href="">
         <input type="button" value="91" />
       </a>-->
   {{#if listExists}}
     <a href="">
-      {{#each equipamentoLista as |equipamento|}}
+      {{#each lista as |equipamento|}}
         <a href="/equipamento_{{equipamento.pk}}">
           <input type="button" value="{{equipamento.pk}}" />
         </a>
