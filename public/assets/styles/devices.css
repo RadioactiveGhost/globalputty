@@ -181,7 +181,37 @@ input:hover {
 
     body{
         background-attachment:fixed;
-        background-size: 300%;
+        background-size: 600%;
+    }
+
+    .a4_1 {
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+    
+    .a4_2 {
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+    
+    .a4_3 {
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+    
+    .a4_4 {
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+    
+    .ip2 {
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+    
+    .cams {
+        background-attachment:fixed;
+        background-size: 600%;
     }
 
     .subheader {

@@ -166,6 +166,11 @@ input:hover {
         background-position: 70% 0%;
     }
 
+    .a4{
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+
     .subheader {
         font-size: 1.8em;
     }
