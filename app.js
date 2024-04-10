@@ -91,16 +91,16 @@ app.get('/a4', (req, res) => {
     res.render('a4', {layout: 'submenu', title: 'GlobalPuTTY - CCTV A4'});
 });
 app.get('/a4_1', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 89 &rarr; 122', backAction: 'a4', bodyClass:'a4_1', lista: cctvLista1, listExists: true});
+    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 89 → 122', backAction: 'a4', bodyClass:'a4_1', lista: cctvLista1, listExists: true});
 });
 app.get('/a4_2', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 2', subtitle: 'CCTV 123 &rarr; 168', backAction: 'a4', bodyClass:'a4_2', lista: cctvLista2, listExists: true});
+    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 2', subtitle: 'CCTV 123 → 168', backAction: 'a4', bodyClass:'a4_2', lista: cctvLista2, listExists: true});
 });
 app.get('/a4_3', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 3', subtitle: 'CCTV 170 &rarr; 193', backAction: 'a4', bodyClass:'a4_3', lista: cctvLista3, listExists: true});
+    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 3', subtitle: 'CCTV 170 → 193', backAction: 'a4', bodyClass:'a4_3', lista: cctvLista3, listExists: true});
 });
 app.get('/a4_4', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 194 &rarr; 222', backAction: 'a4', bodyClass:'a4_4', lista: cctvLista4, listExists: true});
+    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 194 → 222', backAction: 'a4', bodyClass:'a4_4', lista: cctvLista4, listExists: true});
 });
 app.get('/adr', (req, res) => {
     res.render('adr', {layout: 'devices', title: 'GlobalPuTTY - ADR', lista: equipamentoLista, listExists: true});

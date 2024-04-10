@@ -25,7 +25,7 @@ body {
     background-size: 180%;
     background-position: 0% 0%;
     background-repeat: no-repeat;
-    background-blend-mode: soft-light;
+    /*background-blend-mode: soft-light;*/
     background-attachment:fixed;
     text-align: center !important;
 }
@@ -39,7 +39,7 @@ body {
 }
 
 .a4 {
-    background-image: url("/assets/images/a4.jpg");
+    background-image: url("/assets/images/a4_new.jpg");
     background-size: 150%;
     background-position: 40% 30%;
     background-attachment: fixed;

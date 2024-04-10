@@ -25,42 +25,42 @@ body {
     background-size: 180%;
     background-position: 0% 0%;
     background-repeat: no-repeat;
-    background-blend-mode: soft-light;
+    /*background-blend-mode: soft-light;*/
     background-attachment:fixed;
     text-align: center !important;
 }
 
 .a4_1 {
-    background-image: url("/assets/images/a4_1.jpg");
-    background-size: 150%;
+    background-image: url("/assets/images/a4_1_new.jpg");
+    background-size: 120%;
     background-position: 40% 30%;
     background-attachment: fixed;
 }
 
 .a4_2 {
-    background-image: url("/assets/images/a4_2.jpg");
-    background-size: 150%;
+    background-image: url("/assets/images/a4_2_new.jpg");
+    background-size: 120%;
     background-position: 40% 30%;
     background-attachment: fixed;
 }
 
 .a4_3 {
-    background-image: url("/assets/images/a4_3.jpg");
-    background-size: 150%;
+    background-image: url("/assets/images/a4_3_new.jpg");
+    background-size: 120%;
     background-position: 40% 30%;
     background-attachment: fixed;
 }
 
 .a4_4 {
-    background-image: url("/assets/images/a4_4.jpg");
-    background-size: 150%;
+    background-image: url("/assets/images/a4_4_new.jpg");
+    background-size: 120%;
     background-position: 40% 30%;
     background-attachment: fixed;
 }
 
 .ip2 {
     background-image: url("/assets/images/ip2.jpg");
-    background-size: 150%;
+    background-size: 120%;
     background-position: 40% 30%;
     background-attachment: fixed;
 }
