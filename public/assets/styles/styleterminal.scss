@@ -330,3 +330,12 @@ body {
 .go_home_button:hover>a>.img_hover {
     display: inline;
 }
+
+@media only screen and (max-width: 700px) {
+
+    body{
+        background-attachment:fixed;
+        background-size: 600%;
+        background-position: 12% 0%;
+    }
+}
