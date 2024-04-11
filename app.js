@@ -1,24 +1,30 @@
 //* Implementação dos Módulos do NodeJS ---
-const express = require('express');
-const http = require('http');
-const url = require('url');
-const path = require('path');
-const { engine } = require('express-handlebars');
-const { equipamentoLista } = require('./server/adr.js');
-const {cctvLista1, cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2} = require('./server/cctv.js');
-const SSHClient = require('ssh2').Client;
+import express from 'express';
+import { createServer } from 'node:http';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import { engine }  from 'express-handlebars';
+import { Server } from 'socket.io';
+import pkg from '@xterm/xterm';
+const { Terminal } = pkg;
+import { equipamentoLista } from './server/adr.js';
+import { cctvLista1, cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2 } from './server/cctv.js';
+import { Client } from 'ssh2';
 /* ------------------------------------- */
 
 //* Variáveis -----------------------------
 const port = 8888;
-const app = module.exports.app = express();
 const log = console.log;
-const server = http.createServer(app);
-const io = require('socket.io')(server);
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const cctvLista = cctvLista1.concat(cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2);
 let sshost = '';
 let ssport = '';
 let ssusername = '';
 let sspassword = '';
+
 /* ------------------------------------- */
 
 /*
@@ -37,7 +43,7 @@ app.use(express.static('public'));
 
 //* Conexão SSH ---------------------------
 function sshConnection(socket) {
-    let conn = new SSHClient();
+    let conn = new Client();
     conn.on('ready', function () {
         socket.emit('data', '\r\n- Conexão estabelecida \r\n');
         //* Mostra os botões de interação quando liga com sucesso 
@@ -56,7 +62,7 @@ function sshConnection(socket) {
             });
         });
     }).on('close', function () {
-        console.log('Closed');
+        //console.log('Closed');
         socket.emit('data', '\r\n- Conexão fechada\r\n');
         //socket.emit('redirect', '/');
     }).on('error', function (err) {
@@ -115,11 +121,11 @@ app.get('/ip2', (req, res) => {
     res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV IP2', subtitle: 'Itinerário Principal 2', backAction: 'cctv', bodyClass: 'ip2', lista: cctvIP2, listExists: true});
 });
 app.get('/equipamento_:id', (req, res) => {
-    log ('Selected Equipment: ' + req.params.id);
+    //log ('Selected Equipment: ' + req.params.id);
     let i = 0
     for (i = 0; i < equipamentoLista.length; i++) {
         if (req.params.id === equipamentoLista[i].pk) {
-            log('Type: ' + equipamentoLista[i].host + ' | ' + i);
+            //log('Type: ' + equipamentoLista[i].host + ' | ' + i);
             sshost = equipamentoLista[i].host;
             ssport = equipamentoLista[i].port;
             ssusername = equipamentoLista[i].user;
@@ -129,6 +135,15 @@ app.get('/equipamento_:id', (req, res) => {
     }
     io.on('connection', ioConnection);
     res.render('terminal', {nome: 'ADR ' + equipamentoLista[i].pk + ' - ' + equipamentoLista[i].sublanco, layout: false});
+});
+app.get('/cctv_:id', (req, res) => {
+    let i = 0;
+    for (i = 0; i < cctvLista.length; i++) {
+        if (req.params.id === cctvLista[i].pk) {
+            break;
+        }
+    }
+    res.render('cctvpage', {layout: 'devices', pk: cctvLista[i].pk, link: cctvLista[i].stream});
 });
 
 app.get('*', function (req, res) {

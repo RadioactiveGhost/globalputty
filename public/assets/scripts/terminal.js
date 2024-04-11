@@ -45,10 +45,10 @@ socket.emit('startSSH')
 
 var terminalContainer = document.getElementById('terminal-container');
 const term = new Terminal({ cursorBlink: true });
-const fitAddon = new FitAddon.FitAddon();
-term.loadAddon(fitAddon);
+//const fitAddon = new FitAddon.FitAddon();
+//term.loadAddon(fitAddon);
 term.open(terminalContainer);
-fitAddon.fit();
+//fitAddon.fit();
 socket.on('connect', () => {
     term.write('\r\n- Ligado ao servidor\r\n');
     toggleConnected();
