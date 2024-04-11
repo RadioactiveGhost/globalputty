@@ -15,10 +15,12 @@ const app = module.exports.app = express();
 const log = console.log;
 const server = http.createServer(app);
 const io = require('socket.io')(server);
+const cctvLista = cctvLista1.concat(cctvLista2, cctvLista3, cctvLista4);
 let sshost = '';
 let ssport = '';
 let ssusername = '';
 let sspassword = '';
+
 /* ------------------------------------- */
 
 /*
@@ -56,7 +58,7 @@ function sshConnection(socket) {
             });
         });
     }).on('close', function () {
-        console.log('Closed');
+        //console.log('Closed');
         socket.emit('data', '\r\n- Conexão fechada\r\n');
         //socket.emit('redirect', '/');
     }).on('error', function (err) {
@@ -115,11 +117,11 @@ app.get('/ip2', (req, res) => {
     res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV IP2', subtitle: 'Itinerário Principal 2', backAction: 'cctv', bodyClass: 'ip2', lista: cctvIP2, listExists: true});
 });
 app.get('/equipamento_:id', (req, res) => {
-    log ('Selected Equipment: ' + req.params.id);
+    //log ('Selected Equipment: ' + req.params.id);
     let i = 0
     for (i = 0; i < equipamentoLista.length; i++) {
         if (req.params.id === equipamentoLista[i].pk) {
-            log('Type: ' + equipamentoLista[i].host + ' | ' + i);
+            //log('Type: ' + equipamentoLista[i].host + ' | ' + i);
             sshost = equipamentoLista[i].host;
             ssport = equipamentoLista[i].port;
             ssusername = equipamentoLista[i].user;
@@ -129,6 +131,15 @@ app.get('/equipamento_:id', (req, res) => {
     }
     io.on('connection', ioConnection);
     res.render('terminal', {nome: 'ADR ' + equipamentoLista[i].pk + ' - ' + equipamentoLista[i].sublanco, layout: false});
+});
+app.get('/cctv_:id', (req, res) => {
+    let i = 0;
+    for (i = 0; i < cctvLista.length; i++) {
+        if (req.params.id === cctvLista[i].pk) {
+            break;
+        }
+    }
+    res.render('cctvpage', {layout: 'devices', pk: cctvLista[i].pk, link: cctvLista[i].stream});
 });
 
 app.get('*', function (req, res) {

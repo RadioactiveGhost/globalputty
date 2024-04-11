@@ -2,19 +2,19 @@
   <div class="cctv_icon">
     <img src="assets/images/cctv_icon.png">
   </div>
-  <div class="subheader">CCTV 00</div>
+  <div class="subheader">CCTV {{pk}}</div>
   <div class="maincontainer">
     <a class="tooltip" href="">
       <input type="button" value="Reset" />
       <span class="tooltiptext">Reiniciar a CCTV</span>
     </a>
-    <a class="tooltip" href="">
+    <a class="tooltip" href="{{link}}">
       <input type="button" value="Transmissão" />
       <span class="tooltiptext">Imagem em direto</span>
     </a>
   </div>
   <div class="go_back_button">
-    <a href="cctv">
+    <a href="javascript:history.go(-1)">
       <img src="assets/images/back_arrow.png" />
       <img class="img_hover" src="assets/images/back_arrow_hover.png" />
     </a>
