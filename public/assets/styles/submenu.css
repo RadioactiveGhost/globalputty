@@ -129,7 +129,6 @@ input:hover {
 .maincontainer > .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted #0f3866;
 }
 
 .maincontainer > .tooltip > .tooltiptext {
@@ -178,6 +177,7 @@ input:hover {
     .a4{
         background-attachment:fixed;
         background-size: 600%;
+        text-decoration: none;
     }
 
     .subheader {

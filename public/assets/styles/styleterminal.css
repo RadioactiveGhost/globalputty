@@ -98,17 +98,13 @@ body {
   -webkit-animation: fadeIn 0.25s forwards;
 }
 
-#buttons,
-#menuGroup {
+#buttonGroup {
   float: left;
-  display: flex;
-  flex-direction: column;
   width: 20%;
   text-align: center;
   margin: 0 !important;
 }
-#buttons input,
-#menuGroup input {
+#buttonGroup input {
   width: 200px;
   border-color: #222222;
   border-style: outset;
@@ -122,27 +118,29 @@ body {
   padding: 5px;
   margin: 3px;
 }
-#buttons input:not([disabled]):hover,
-#menuGroup input:not([disabled]):hover {
+#buttonGroup input.active {
+  background: var(--color1_50percent);
+  color: var(--color2);
+  border-color: #222222;
+  border-style: inset;
+}
+#buttonGroup input:not([disabled]):hover {
   cursor: pointer;
   background: var(--color1_50percent);
   color: var(--color2);
   border-color: #222222;
   border-style: inset;
 }
-#buttons input[disabled],
-#menuGroup input[disabled] {
+#buttonGroup input[disabled] {
   box-shadow: none !important;
-  background: #e2e2e2;
+  background: grey;
 }
-#buttons .tooltip,
-#menuGroup .tooltip {
+#buttonGroup .tooltip {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted #0f3866;
 }
-#buttons .tooltip .tooltiptext,
-#menuGroup .tooltip .tooltiptext {
+#buttonGroup .tooltip .tooltiptext {
   visibility: hidden;
   width: 170px;
   background-color: #0f3866;
@@ -157,8 +155,7 @@ body {
   margin-right: -25px;
   margin-top: 30px;
 }
-#buttons .tooltip .tooltiptext::after,
-#menuGroup .tooltip .tooltiptext::after {
+#buttonGroup .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -168,13 +165,19 @@ body {
   border-style: solid;
   border-color: #0f3866 transparent transparent transparent;
 }
-#buttons .tooltip:hover .tooltiptext,
-#menuGroup .tooltip:hover .tooltiptext {
+#buttonGroup .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
+#disconnectedButtons {
+  position: absolute;
+  top: 0;
+  left: 80px;
+}
+
 #menugroup {
-  left: 230px;
+  top: 0;
+  left: 330px;
   position: absolute;
 }
 
@@ -233,6 +236,9 @@ body {
   padding: 10px 20px;
   font-weight: bold;
 }
+#terminal-window #terminal-header #terminal-subtitle {
+  display: none;
+}
 #terminal-window #terminal-container {
   /*width: 940px;*/
   /*height: 560px;*/
@@ -272,6 +278,9 @@ body {
   #terminal-window #terminal-header {
     border-radius: 0px !important;
   }
+  #terminal-window #terminal-header #terminal-subtitle {
+    display: inline;
+  }
   #terminal-window #terminal-container {
     width: calc(100% - 10px);
     height: 20%;
@@ -291,6 +300,9 @@ body {
   #buttonGroup input {
     width: 200px;
   }
+  #disconnectedButtons {
+    left: 0;
+  }
   #menugroup {
     bottom: 86px;
     left: 230px;
@@ -303,6 +315,11 @@ body {
     left: 50px;
   }
 }
+.hide {
+  animation: fadeOut 0.25s forwards;
+  -webkit-animation: fadeOut 0.25s forwards;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
