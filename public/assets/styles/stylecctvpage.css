@@ -1,0 +1,182 @@
+:root {
+    --color1: #0f3866;
+    --color2: #94e8bf;
+    --color1_50percent: #0f3866f3;
+    --color2_50percent: #94e8bff3;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("/assets/fonts/Montserrat-VariableFont_wght.ttf");
+}
+
+* {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #222222;
+    background-image: url("/assets/images/background_1.jpg");
+    background-size: 180%;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    /*background-blend-mode: soft-light;*/
+    background-attachment:fixed;
+    text-align: center !important;
+}
+
+.cctv_page {
+    background-image: url("/assets/images/cctv_page.jpg");
+    background-size: 120%;
+    background-position: 40% 30%;
+    background-attachment: fixed;
+}
+
+.subheader {
+    margin-bottom: 30px;
+    margin-top: 70px;
+    left: 0;
+    width: 100%;
+    color: white;
+    text-shadow: 2px 2px 4px #0f3866;
+    text-align: center;
+    padding: 0;
+    font-weight: bolder;
+    font-size: 2em;
+}
+
+.cctv_icon{
+    margin-top: 30px;
+    margin-bottom: -60px;
+
+    img{
+        width: 80px;
+    } 
+}
+
+.maincontainer {
+    margin: auto;
+    margin-bottom: 70px;
+    width: 80%;
+    height: 80%;
+    border-color: black;
+    padding: 10px;
+}
+
+input {
+    width: 200px;
+    height: 65px;
+    border-color: #222222;
+    border-style: outset;
+    outline: none;
+    border-radius: 30px;
+    background: #eee;
+    font-size: 1.8em;
+    font-weight: bold;
+    transition-duration: 150ms;
+    color: var(--color1);
+    padding: 5px;
+    margin: 10px;
+}
+
+input:hover {
+    cursor: pointer;
+    background: var(--color1_50percent);
+    color: var(--color2);
+    border-color: #222222;
+    border-style: inset;
+}
+
+.go_back_button, .go_home_button {
+    margin-bottom: 70px;
+    display: inline-block;
+    position: relative;
+}
+
+.go_back_button > a > img, .go_home_button > a > img{
+    width: 50px;
+}
+
+.go_back_button > a > .img_hover, .go_home_button > a > .img_hover{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.go_back_button:hover > a > .img_hover, .go_home_button:hover > a > .img_hover{
+    display: inline;
+}
+
+
+.maincontainer > .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #0f3866;
+}
+
+.maincontainer > .tooltip > .tooltiptext {
+    visibility: hidden;
+    width: 170px;
+    background-color: #0f3866;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -85px;
+}
+
+.maincontainer > .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #0f3866 transparent transparent transparent;
+}
+
+.maincontainer > .tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+@media only screen and (max-width: 700px) {
+
+    body{
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+
+    .cctv_page {
+        background-attachment:fixed;
+        background-size: 600%;
+    }
+
+    .subheader {
+        font-size: 1.8em;
+    }
+
+    input {
+        margin-bottom: 15px;
+        width: 150px;
+        height: 75px;
+        font-size: 1.5em;
+    }
+
+    .maincontainer {
+        width: 80%;
+        height: 80%;
+    }
+}
+
