@@ -143,7 +143,7 @@ app.get('/cctv_:id', (req, res) => {
             break;
         }
     }
-    res.render('cctvpage', {layout: 'devices', pk: cctvLista[i].pk, link: cctvLista[i].stream});
+    res.render('cctvpage', {layout: 'cctv', pk: cctvLista[i].pk, link: cctvLista[i].stream});
 });
 
 app.get('*', function (req, res) {

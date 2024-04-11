@@ -21,24 +21,17 @@ body {
     margin: 0;
     padding: 0;
     background: #222222;
-    background-image: url("/assets/images/background_1.jpg");
-    background-size: 180%;
-    background-position: 0% 0%;
+    background-image: url("/assets/images/cctv_page.jpg");
+    background-size: 300%;
+    background-position: 55% 58%;
     background-repeat: no-repeat;
     /*background-blend-mode: soft-light;*/
     background-attachment:fixed;
     text-align: center !important;
 }
 
-.cctv_page {
-    background-image: url("/assets/images/cctv_page.jpg");
-    background-size: 120%;
-    background-position: 40% 30%;
-    background-attachment: fixed;
-}
-
 .subheader {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     margin-top: 70px;
     left: 0;
     width: 100%;
@@ -69,7 +62,7 @@ body {
 }
 
 input {
-    width: 200px;
+    width: 250px;
     height: 65px;
     border-color: #222222;
     border-style: outset;
@@ -82,6 +75,12 @@ input {
     color: var(--color1);
     padding: 5px;
     margin: 10px;
+}
+
+#play_button{
+    width: 60px;
+    margin-left: 10px;
+    border-radius: 25px;
 }
 
 input:hover {
@@ -118,7 +117,7 @@ input:hover {
 .maincontainer > .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted #0f3866;
+
 }
 
 .maincontainer > .tooltip > .tooltiptext {
@@ -156,23 +155,13 @@ input:hover {
     body{
         background-attachment:fixed;
         background-size: 600%;
-    }
-
-    .cctv_page {
-        background-attachment:fixed;
-        background-size: 600%;
+        background-position: 60% 30%;
     }
 
     .subheader {
         font-size: 1.8em;
     }
 
-    input {
-        margin-bottom: 15px;
-        width: 150px;
-        height: 75px;
-        font-size: 1.5em;
-    }
 
     .maincontainer {
         width: 80%;
