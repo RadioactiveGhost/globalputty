@@ -1,21 +1,25 @@
 //* Implementação dos Módulos do NodeJS ---
-const express = require('express');
-const http = require('http');
-const url = require('url');
-const path = require('path');
-const { engine } = require('express-handlebars');
-const { equipamentoLista } = require('./server/adr.js');
-const {cctvLista1, cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2} = require('./server/cctv.js');
-const SSHClient = require('ssh2').Client;
+import express from 'express';
+import { createServer } from 'node:http';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import { engine }  from 'express-handlebars';
+import { Server } from 'socket.io';
+import pkg from '@xterm/xterm';
+const { Terminal } = pkg;
+import { equipamentoLista } from './server/adr.js';
+import { cctvLista1, cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2 } from './server/cctv.js';
+import { Client } from 'ssh2';
 /* ------------------------------------- */
 
 //* Variáveis -----------------------------
 const port = 8888;
-const app = module.exports.app = express();
 const log = console.log;
-const server = http.createServer(app);
-const io = require('socket.io')(server);
-const cctvLista = cctvLista1.concat(cctvLista2, cctvLista3, cctvLista4);
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const cctvLista = cctvLista1.concat(cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2);
 let sshost = '';
 let ssport = '';
 let ssusername = '';
@@ -39,7 +43,7 @@ app.use(express.static('public'));
 
 //* Conexão SSH ---------------------------
 function sshConnection(socket) {
-    let conn = new SSHClient();
+    let conn = new Client();
     conn.on('ready', function () {
         socket.emit('data', '\r\n- Conexão estabelecida \r\n');
         //* Mostra os botões de interação quando liga com sucesso 
