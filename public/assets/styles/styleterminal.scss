@@ -100,15 +100,11 @@ body {
     -webkit-animation: fadeIn 0.25s forwards;
 }
 
-#buttons,
-#menuGroup {
+#buttonGroup {
     float: left;
-    display: flex;
-    flex-direction: column;
     width: 20%;
     text-align: center;
     margin: 0 !important;
-
     input {
         width: 200px;
         border-color: #222222;
@@ -123,6 +119,13 @@ body {
         padding: 5px;
         margin: 3px;
 
+        &.active {
+            background: var(--color1_50percent);
+            color: var(--color2);
+            border-color: #222222;
+            border-style: inset;
+        }
+
         &:not([disabled]):hover {
             cursor: pointer;
             background: var(--color1_50percent);
@@ -133,7 +136,7 @@ body {
 
         &[disabled] {
             box-shadow: none !important;
-            background: #e2e2e2;
+            background: grey;
         }
     }
 
@@ -174,8 +177,14 @@ body {
         visibility: visible;
     }
 }
+#disconnectedButtons{
+    position: absolute;
+    top: 0;
+    left: 80px;
+}
 #menugroup {
-    left: 230px;
+    top: 0;
+    left: 330px;
     position: absolute;
 }
 
@@ -235,6 +244,9 @@ body {
         color: white;
         padding: 10px 20px;
         font-weight: bold;
+        #terminal-subtitle {
+            display: none;
+        }
     }
 
     #terminal-container {
@@ -267,6 +279,7 @@ body {
     }
 }
 
+
 @media only screen and (max-width: 1100px) {
     .header {
         display: none;
@@ -279,6 +292,9 @@ body {
         border-radius: 0px !important;
         #terminal-header {
             border-radius: 0px !important;
+            #terminal-subtitle {
+                display:inline;
+            }
         }
         #terminal-container {
             width: calc(100% - 10px);
@@ -300,6 +316,9 @@ body {
             width: 200px;
         }
     }
+    #disconnectedButtons{
+        left: 0;
+    }
     #menugroup {
         bottom: 86px;
         left: 230px;
@@ -311,6 +330,11 @@ body {
         bottom: 100px;
         left: 50px;
     }
+}
+
+.hide {
+    animation: fadeOut 0.25s forwards;
+    -webkit-animation: fadeOut 0.25s forwards;
 }
 
 @keyframes fadeIn {

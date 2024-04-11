@@ -26,9 +26,9 @@
   <div class="maincontainer">
 
     <div id="buttonGroup">
-      <div id="buttons">
+      <div id="connectedButtons">
         <!--<a class="tooltip">-->
-          <input type="button" value="Menu" id="tmButton" />
+          <input type="button" value="Menu" id="menuButton" />
           <!--<span class="tooltiptext">Entrar no Menu<br>da ADR</span>
         </a>-->
         <!--<a class="tooltip">-->
@@ -36,7 +36,7 @@
           <!--<span class="tooltiptext">Contagem em<br>tempo real</span>
         </a>-->
         <!--<a class="tooltip">-->
-          <input type="button" value="Parar" id="stopButton" />
+          <input type="button" value="Parar" id="stopButton" disabled/>
           <!--<span class="tooltiptext">Parar execução do<br>comando anterior</span>
         </a>-->
         <!--<a class="tooltip">-->
@@ -44,9 +44,12 @@
           <!--<span class="tooltiptext">Limpar ecrã<br> do terminal</span>
         </a>-->
         <!--<a class="tooltip">-->
-          <input type="button" value="Desconectar" id="quitButton" />
+          <input type="button" value="Disconectar" id="quitButton" />
           <!--<span class="tooltiptext">Desligar conexão<br>com a ADR</span>
         </a>-->
+      </div>
+      <div id="disconnectedButtons">
+          <input type="button" value="Conectar" id="connectButton" onclick="location.reload()"/>
       </div>
       <div id="menuGroup" class="hide"></div>
     </div>
@@ -55,14 +58,12 @@
       Aguarde...
     </div>
     <div id="terminal-window">
-      <div id="terminal-header">Terminal {{nome}}</div>
+      <div id="terminal-header">Terminal <span id="terminal-subtitle">{{nome}}</span></div>
       <div id="terminal-container" disabled>
       </div>
     </div>
 
   </div>
-
-  <script src="/assets/scripts/terminal.js"></script>
 
 
   <!--<div class="go_back_button">
@@ -82,7 +83,9 @@
   <div class="footer">
     <img src="/assets/images/tmt_logo.png" alt="Globalvia Logo" />
   </div>
+  
 
+  <script src="/assets/scripts/terminal.js"></script>
 </body>
 
 </html>
