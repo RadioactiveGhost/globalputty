@@ -151,7 +151,12 @@ function toggleConnected() {
         discButtons.style.display = 'block';
         discButtons.classList.remove('hide');
         connButtons.classList.add('hide');
-        openMenu();
+        if (document.getElementById('menuGroup').classList.contains('show')) {
+            menuButton.classList.remove('active');
+            //socket.emit('data', '\x03');
+            document.getElementById('menuGroup').classList.remove('show');
+            document.getElementById('menuGroup').classList.add('hide');
+        }
     } else {
         connected = 1;
         discButtons.style.display = 'none';

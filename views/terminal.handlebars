@@ -1,75 +1,98 @@
 <html>
 
-<head>
-  <title>SSH Terminal</title>
-  <link rel="stylesheet" href="/modules/@xterm/xterm/css/xterm.css" />
-  <script src="/modules/@xterm/xterm/lib/xterm.js"></script>
-  <script src="/modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+  <head>
+    <title>SSH Terminal</title>
+    <link rel="stylesheet" href="/modules/@xterm/xterm/css/xterm.css" />
+    <script src="/modules/@xterm/xterm/lib/xterm.js"></script>
+    <script src="/modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="/assets/styles/styleterminal.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-</head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/styles/styleterminal.css"
+    />
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"
+    ></script>
+  </head>
 
-<body>
-  <div class="header">
-    <a href="/index.html" style="text-decoration: none; color: #94e8bf; text-shadow: 0 0 2px #0f3866, 0 0 5px #0f3866">
-      GLOBAL
-    </a>
-    <a href="/index.html" style="text-decoration: none; color: #0f3866; text-shadow: 0 0 2px #94e8bf, 0 0 5px #94e8bf">
-      PuTTY
-    </a>
-  </div>
+  <body>
+    <div class="header">
+      <a
+        href="/index.html"
+        style="text-decoration: none; color: #94e8bf; text-shadow: 0 0 2px #0f3866, 0 0 5px #0f3866"
+      >
+        GLOBAL
+      </a>
+      <a
+        href="/index.html"
+        style="text-decoration: none; color: #0f3866; text-shadow: 0 0 2px #94e8bf, 0 0 5px #94e8bf"
+      >
+        PuTTY
+      </a>
+    </div>
 
-  <div class="subheader">{{nome}}</div>
+    <div class="subheader">{{nome}}</div>
 
-  <div class="maincontainer">
+    <div class="maincontainer">
 
-    <div id="buttonGroup">
-      <div id="connectedButtons">
+      <div id="buttonGroup">
+        <div id="connectedButtons">
           <a class="tooltip">
             <input type="button" value="Menu" id="menuButton" />
-            <span class="tooltiptext">Entrar no Menu<br>da ADR</span>
-          </a>  
+            <span class="tooltiptext">Entrar no Menu<br />da ADR</span>
+          </a>
           <a class="tooltip">
-          <input type="button" value="PVR" id="pvrButton" />
-        <span class="tooltiptext">Contagem em<br>tempo real</span>
-        </a>
+            <input type="button" value="PVR" id="pvrButton" />
+            <span class="tooltiptext">Contagem em<br />tempo real</span>
+          </a>
           <a class="tooltip">
-          <input type="button" value="Parar" id="stopButton" disabled/>
-        <span class="tooltiptext">Parar execução do<br>comando anterior</span>
-        </a>
+            <input type="button" value="Parar" id="stopButton" disabled />
+            <span class="tooltiptext">Parar execução do<br />comando anterior</span>
+          </a>
           <a class="tooltip">
-          <input type="button" value="Limpar" id="clearButton" />
-        <span class="tooltiptext">Limpar ecrã<br> do terminal</span>
-        </a>
+            <input type="button" value="Limpar" id="clearButton" />
+            <span class="tooltiptext">Limpar ecrã<br /> do terminal</span>
+          </a>
           <a class="tooltip">
-          <input type="button" value="Desconectar" id="quitButton" />
-        <span class="tooltiptext">Desligar conexão<br>com a ADR</span>
-        </a>
+            <input type="button" value="Desconectar" id="quitButton" />
+            <span class="tooltiptext">Desligar conexão<br />com a ADR</span>
+          </a>
+        </div>
+        <div id="disconnectedButtons">
+          <a class="tooltip">
+            <input
+              type="button"
+              value="Conectar"
+              id="connectButton"
+              onclick="location.reload()"
+            />
+            <span class="tooltiptext">Fazer conexão<br />com a ADR</span>
+          </a>
+          <input
+            type="button"
+            value="Sair"
+            id="sairButton"
+            onclick="history.go(-1); return false;"
+          />
+        </div>
+        <div id="menuGroup" class="hide"></div>
       </div>
-      <div id="disconnectedButtons">
-        <a class="tooltip">
-          <input type="button" value="Conectar" id="connectButton" onclick="location.reload()"/>
-          <span class="tooltiptext">Fazer conexão<br>com a ADR</span>
-        </a>
+
+      <div id="aguarde">
+        Aguarde...
       </div>
-      <div id="menuGroup" class="hide"></div>
+      <div id="terminal-window">
+        <div id="terminal-header">Terminal
+          <span id="terminal-subtitle">{{nome}}</span></div>
+        <div id="terminal-container" disabled>
+        </div>
+      </div>
+
     </div>
 
-    <div id="aguarde">
-      Aguarde...
-    </div>
-    <div id="terminal-window">
-      <div id="terminal-header">Terminal <span id="terminal-subtitle">{{nome}}</span></div>
-      <div id="terminal-container" disabled>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!--<div class="go_back_button">
+    <!--<div class="go_back_button">
     <a href="adr">
       <img src="/assets/images/back_arrow.png" />
       <img class="img_hover" src="/assets/images/back_arrow_hover.png" />
@@ -83,12 +106,11 @@
     </a>
   </div>-->
 
-  <div class="footer">
-    <img src="/assets/images/tmt_logo.png" alt="Globalvia Logo" />
-  </div>
-  
+    <div class="footer">
+      <img src="/assets/images/tmt_logo.png" alt="Globalvia Logo" />
+    </div>
 
-  <script src="/assets/scripts/terminal.js"></script>
-</body>
+    <script src="/assets/scripts/terminal.js"></script>
+  </body>
 
 </html>
