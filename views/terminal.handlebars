@@ -27,29 +27,32 @@
 
     <div id="buttonGroup">
       <div id="connectedButtons">
-        <!--<a class="tooltip">-->
-          <input type="button" value="Menu" id="menuButton" />
-          <!--<span class="tooltiptext">Entrar no Menu<br>da ADR</span>
-        </a>-->
-        <!--<a class="tooltip">-->
+          <a class="tooltip">
+            <input type="button" value="Menu" id="menuButton" />
+            <span class="tooltiptext">Entrar no Menu<br>da ADR</span>
+          </a>  
+          <a class="tooltip">
           <input type="button" value="PVR" id="pvrButton" />
-          <!--<span class="tooltiptext">Contagem em<br>tempo real</span>
-        </a>-->
-        <!--<a class="tooltip">-->
+        <span class="tooltiptext">Contagem em<br>tempo real</span>
+        </a>
+          <a class="tooltip">
           <input type="button" value="Parar" id="stopButton" disabled/>
-          <!--<span class="tooltiptext">Parar execução do<br>comando anterior</span>
-        </a>-->
-        <!--<a class="tooltip">-->
+        <span class="tooltiptext">Parar execução do<br>comando anterior</span>
+        </a>
+          <a class="tooltip">
           <input type="button" value="Limpar" id="clearButton" />
-          <!--<span class="tooltiptext">Limpar ecrã<br> do terminal</span>
-        </a>-->
-        <!--<a class="tooltip">-->
-          <input type="button" value="Disconectar" id="quitButton" />
-          <!--<span class="tooltiptext">Desligar conexão<br>com a ADR</span>
-        </a>-->
+        <span class="tooltiptext">Limpar ecrã<br> do terminal</span>
+        </a>
+          <a class="tooltip">
+          <input type="button" value="Desconectar" id="quitButton" />
+        <span class="tooltiptext">Desligar conexão<br>com a ADR</span>
+        </a>
       </div>
       <div id="disconnectedButtons">
+        <a class="tooltip">
           <input type="button" value="Conectar" id="connectButton" onclick="location.reload()"/>
+          <span class="tooltiptext">Fazer conexão<br>com a ADR</span>
+        </a>
       </div>
       <div id="menuGroup" class="hide"></div>
     </div>
