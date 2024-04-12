@@ -3,10 +3,13 @@ import express from 'express';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { engine }  from 'express-handlebars';
+import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
+import bodyParser from 'body-parser';
 import pkg from '@xterm/xterm';
 const { Terminal } = pkg;
+import rtsp from 'rtsp-relay';
+const {loadPlayer} = rtsp;
 import { equipamentoLista } from './server/adr.js';
 import { cctvLista1, cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2 } from './server/cctv.js';
 import { Client } from 'ssh2';
@@ -29,8 +32,10 @@ let sspassword = '';
 
 /*
 * Declarações para o express.js -----------
-*Tratam de encaminhamento de ficheiros ----
+* Tratam de encaminhamento de ficheiros ---
 */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'handlebars');
 app.engine('handlebars', engine({
     layoutsDir: __dirname + '/views/layouts',
@@ -91,34 +96,34 @@ function ioConnection(socket) {
 //* Encaminhamento de endereços -----------
 
 app.get('/', (req, res) => {
-    res.render('index', {title: 'GlobalPuTTY'});
+    res.render('index', { title: 'GlobalPuTTY' });
 });
 app.get('/a4', (req, res) => {
-    res.render('a4', {layout: 'submenu', title: 'GlobalPuTTY - CCTV A4'});
+    res.render('a4', { layout: 'submenu', title: 'GlobalPuTTY - CCTV A4' });
 });
 app.get('/a4_1', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 89 → 122', backAction: 'a4', bodyClass:'a4_1', lista: cctvLista1, listExists: true});
+    res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 89 → 122', backAction: 'a4', bodyClass: 'a4_1', lista: cctvLista1, listExists: true });
 });
 app.get('/a4_2', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 2', subtitle: 'CCTV 123 → 168', backAction: 'a4', bodyClass:'a4_2', lista: cctvLista2, listExists: true});
+    res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 2', subtitle: 'CCTV 123 → 168', backAction: 'a4', bodyClass: 'a4_2', lista: cctvLista2, listExists: true });
 });
 app.get('/a4_3', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 3', subtitle: 'CCTV 170 → 193', backAction: 'a4', bodyClass:'a4_3', lista: cctvLista3, listExists: true});
+    res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 3', subtitle: 'CCTV 170 → 193', backAction: 'a4', bodyClass: 'a4_3', lista: cctvLista3, listExists: true });
 });
 app.get('/a4_4', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 194 → 222', backAction: 'a4', bodyClass:'a4_4', lista: cctvLista4, listExists: true});
+    res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV A4 - 1', subtitle: 'CCTV 194 → 222', backAction: 'a4', bodyClass: 'a4_4', lista: cctvLista4, listExists: true });
 });
 app.get('/adr', (req, res) => {
-    res.render('adr', {layout: 'devices', title: 'GlobalPuTTY - ADR', lista: equipamentoLista, listExists: true});
+    res.render('adr', { layout: 'devices', title: 'GlobalPuTTY - ADR', lista: equipamentoLista, listExists: true });
 });
 app.get('/cams', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV CAMs', subtitle: 'CAMs', backAction: 'cctv', bodyClass:'cams', lista: cctvCAM, listExists: true});
+    res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV CAMs', subtitle: 'CAMs', backAction: 'cctv', bodyClass: 'cams', lista: cctvCAM, listExists: true });
 });
 app.get('/cctv', (req, res) => {
-    res.render('cctv', {layout: 'submenu', title: 'GlobalPuTTY - CCTV'});
+    res.render('cctv', { layout: 'submenu', title: 'GlobalPuTTY - CCTV' });
 });
 app.get('/ip2', (req, res) => {
-    res.render('cctvtemplate', {layout: 'devices', title: 'GlobalPuTTY - CCTV IP2', subtitle: 'Itinerário Principal 2', backAction: 'cctv', bodyClass: 'ip2', lista: cctvIP2, listExists: true});
+    res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV IP2', subtitle: 'Itinerário Principal 2', backAction: 'cctv', bodyClass: 'ip2', lista: cctvIP2, listExists: true });
 });
 app.get('/equipamento_:id', (req, res) => {
     //log ('Selected Equipment: ' + req.params.id);
@@ -134,7 +139,7 @@ app.get('/equipamento_:id', (req, res) => {
         }
     }
     io.on('connection', ioConnection);
-    res.render('terminal', {nome: 'ADR ' + equipamentoLista[i].pk + ' - ' + equipamentoLista[i].sublanco, layout: false});
+    res.render('terminal', { nome: 'ADR ' + equipamentoLista[i].pk + ' - ' + equipamentoLista[i].sublanco, layout: false });
 });
 app.get('/cctv_:id', (req, res) => {
     let i = 0;
@@ -143,9 +148,15 @@ app.get('/cctv_:id', (req, res) => {
             break;
         }
     }
-    res.render('cctvpage', {layout: 'cctv', pk: cctvLista[i].pk, link: cctvLista[i].stream});
+    if (cctvLista[i].protocol === 'https') {
+        let link = cctvLista[i].user + ':' + cctvLista[i].pass + '@' + cctvLista[i].host;
+        res.render('cctvpage', { layout: 'cctv', pk: cctvLista[i].pk, link: 'https://' + link });
+    } else {
+        res.render('cctvpage', { layout: 'cctv', pk: cctvLista[i].pk, link: 'http://' + cctvLista[i].host});
+    }
 });
 
+//app.get('redi')
 app.get('*', function (req, res) {
     res.redirect('/');
 });
