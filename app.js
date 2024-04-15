@@ -15,11 +15,11 @@ import { Client } from 'ssh2';
 /* ------------------------------------- */
 
 //* Variáveis -----------------------------
-const port = 8888;
+const port = 8900;
 const log = console.log;
 const app = express();
 const server = createServer(app);
-const { proxy, scriptUrl } = rtsp(app, server);
+const { proxy } = rtsp(app, server);
 const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const cctvLista = cctvLista1.concat(cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2);
