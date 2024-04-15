@@ -9,7 +9,6 @@ import bodyParser from 'body-parser';
 import pkg from '@xterm/xterm';
 const { Terminal } = pkg;
 import rtsp from 'rtsp-relay';
-const {loadPlayer} = rtsp;
 import { equipamentoLista } from './server/adr.js';
 import { cctvLista1, cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2 } from './server/cctv.js';
 import { Client } from 'ssh2';
@@ -20,6 +19,7 @@ const port = 8888;
 const log = console.log;
 const app = express();
 const server = createServer(app);
+const { proxy, scriptUrl } = rtsp(app, server);
 const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const cctvLista = cctvLista1.concat(cctvLista2, cctvLista3, cctvLista4, cctvCAM, cctvIP2);
@@ -44,6 +44,13 @@ app.engine('handlebars', engine({
 }));
 app.use("/modules", express.static(__dirname + "/node_modules"));
 app.use(express.static('public'));
+
+app.ws('/api/stream/:id', (ws, req) =>
+    proxy({
+        url: `${cctvLista[req.params.id].stream}`,
+        additionalFlags: ['-q', '1']
+    })(ws),
+);
 /* ------------------------------------- */
 
 //* Conexão SSH ---------------------------
@@ -67,13 +74,10 @@ function sshConnection(socket) {
             });
         });
     }).on('close', function () {
-        //console.log('Closed');
         socket.emit('data', '\r\n- Conexão fechada\r\n');
-        //socket.emit('redirect', '/');
     }).on('error', function (err) {
         socket.emit('warning', err.message);
         console.log('Error: ' + err.message);
-        //socket.emit('data', '\r\n- Erro de Conexão: ' + err.message + '/!\\\r\n');
     });
     console.log('A user connected');
     socket.on('disconnect', function () {
@@ -126,11 +130,9 @@ app.get('/ip2', (req, res) => {
     res.render('cctvtemplate', { layout: 'devices', title: 'GlobalPuTTY - CCTV IP2', subtitle: 'Itinerário Principal 2', backAction: 'cctv', bodyClass: 'ip2', lista: cctvIP2, listExists: true });
 });
 app.get('/equipamento_:id', (req, res) => {
-    //log ('Selected Equipment: ' + req.params.id);
     let i = 0
     for (i = 0; i < equipamentoLista.length; i++) {
         if (req.params.id === equipamentoLista[i].pk) {
-            //log('Type: ' + equipamentoLista[i].host + ' | ' + i);
             sshost = equipamentoLista[i].host;
             ssport = equipamentoLista[i].port;
             ssusername = equipamentoLista[i].user;
@@ -148,15 +150,14 @@ app.get('/cctv_:id', (req, res) => {
             break;
         }
     }
-    if (cctvLista[i].protocol === 'https') {
-        let link = cctvLista[i].user + ':' + cctvLista[i].pass + '@' + cctvLista[i].host;
-        res.render('cctvpage', { layout: 'cctv', pk: cctvLista[i].pk, link: 'https://' + link });
-    } else {
-        res.render('cctvpage', { layout: 'cctv', pk: cctvLista[i].pk, link: 'http://' + cctvLista[i].host});
-    }
+    res.render('cctvpage', { layout: 'cctv', pk: cctvLista[i].pk, link: '/stream_cctv_' + i });
 });
 
-//app.get('redi')
+app.get('/stream_cctv_:id', (req, res) => {
+    let id = req.params.id;
+    res.render('cctvstream', {layout:false, id:id});
+});
+
 app.get('*', function (req, res) {
     res.redirect('/');
 });
@@ -164,5 +165,5 @@ app.get('*', function (req, res) {
 
 //* Iniciar o Server ----------------------
 server.listen(port, () => {
-    console.log(`App listening to port ${port}`);
+    console.log(`App listening to port ${ port }`);
 });
